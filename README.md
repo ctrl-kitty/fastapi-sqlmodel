@@ -1,8 +1,15 @@
 **Table of Contents**
 
+  * [Configuring](#configuring)
+    + [.env file structure](#env-file-structure)
+  * [Installation](#installation)
+  * [Running](#running)
 
+
+<!-- TOC --><a name="configuring"></a>
 ## Configuring
 Just create .env file in your user directory(~).
+<!-- TOC --><a name="env-file-structure"></a>
 ### .env file structure
 
 ````
@@ -24,6 +31,7 @@ DATABASE_PASSWORD= #String
 DATABASE_NAME= #String
 ````
 
+<!-- TOC --><a name="installation"></a>
 ## Installation
 
 Project require [Python] to run and [PostgreSQL] as database.
@@ -35,6 +43,7 @@ python -m pip install requirements.txt
 python init.py
 ```
 
+<!-- TOC --><a name="running"></a>
 ## Running
 
 Now you can run app simply type
