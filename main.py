@@ -1,15 +1,20 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+import json
 from core.config import settings
+from api.router import router
+from api.exceptions import UserWithThatEmailExistException
+from schema.response import ErrorResponse
 
-app = FastAPI(
-    title=settings.PROJECT_NAME
-)
+app = FastAPI(title=settings.PROJECT_NAME)
+app.include_router(router)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.exception_handler(UserWithThatEmailExistException)
+async def user_with_that_email_exist_exception_handler(req: Request, exc: UserWithThatEmailExistException):
+    data = ErrorResponse(exc, req)
+    return JSONResponse(data.__dict__)
 
 
 if __name__ == '__main__':

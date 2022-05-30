@@ -22,6 +22,7 @@ class User(UserBase, table=True):
     hashed_password: str = Field(
         nullable=False, index=True
     )
-    role_id: Optional[int] = Field(default=None, foreign_key='role.id')
+    # todo add role with init.py
+    role_id: Optional[int] = Field(default=1, foreign_key='role.id')
     role: Optional['Role'] = Relationship(back_populates='users')
 

@@ -1,8 +1,5 @@
-from fastapi import FastAPI
-# todo оформить как роутер
-app = FastAPI()
+from fastapi import APIRouter
+from api.endpoints import users
+router = APIRouter()
 
-
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+router.include_router(users.router, prefix='/users', tags=['users'])
