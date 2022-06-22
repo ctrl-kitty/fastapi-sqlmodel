@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TypeVar, Generic, Type, Optional
+from typing import TypeVar, Generic, Type, Optional, Tuple
 
 from pydantic import BaseModel
 from sqlalchemy import select
@@ -23,9 +23,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     async def get(
             self, id: int, db_session: AsyncSession
-    ) -> Optional[ModelType]:
+    ) -> Tuple[Optional[ModelType]]:
         response = await db_session.exec(select(self.model).where(self.model.id == id))
-        return response.one()
+        return response.first()
 
     async def create(
             self, obj_in: CreateSchemaType, db_session: AsyncSession

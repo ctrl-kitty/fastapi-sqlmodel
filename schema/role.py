@@ -1,3 +1,5 @@
+from enum import Enum
+
 from model.role import RoleBase
 
 
@@ -11,3 +13,8 @@ class IRoleRead(RoleBase):
 
 class IRoleUpdate(RoleBase):
     pass
+
+
+class IRoleEnum(str, Enum):
+    admin = 'admin'
+    user = 'default'

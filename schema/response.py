@@ -30,6 +30,7 @@ class IDeleteResponseBase(IResponseBase[DataType], Generic[DataType]):
 
 class ErrorResponse:
     def __init__(self, exc: BaseAPIException, request: Request):
+        self.status_code = exc.status_code
         self.message = exc.message
         self.method = request.method
         self.path = str(request.url)
