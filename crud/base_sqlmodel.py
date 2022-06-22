@@ -1,5 +1,8 @@
 from datetime import datetime
-from typing import TypeVar, Generic, Type, Optional, Tuple
+from typing import TypeVar, Generic, Type, Optional, Tuple, Union, T
+from fastapi_pagination import Params, Page
+from fastapi_pagination.ext.async_sqlmodel import paginate
+from sqlmodel.sql.expression import Select, SelectOfScalar
 
 from pydantic import BaseModel
 from sqlalchemy import select
@@ -37,3 +40,19 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         await db_session.commit()
         await db_session.refresh(db_obj)
         return db_obj
+
+    async def delete(self, id: int, db_session: AsyncSession):
+        response = await db_session.exec(select(self.model).where(self.model.id == id))
+        obj = response.one()[0]
+        await db_session.delete(obj)
+        await db_session.commit()
+        return obj
+
+    async def get_multi_paginated(
+        self, db_session: AsyncSession, params: Optional[Params] = Params(),
+            query: Optional[Union[T, Select[T], SelectOfScalar[T]]] = None
+    ) -> Page[ModelType]:
+        if query is None:
+            query = self.model
+        return await paginate(db_session, query, params)
+
