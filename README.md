@@ -38,7 +38,7 @@ Project require [Python] to run and [PostgreSQL] as database.
 
 ```sh
 git clone https://github.com/ctrl-kitty/fastapi-sqlmodel.git
-cd cd fastapi-sqlmodel
+cd fastapi-sqlmodel
 python -m pip install requirements.txt
 python init.py
 ```
