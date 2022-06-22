@@ -15,5 +15,8 @@ class CRUDRole(CRUDBase[Role, IRoleCreate, IRoleUpdate]):
         await db_session.refresh(role_obj)
         return role_obj
 
+    async def get_by_id(self, role_id: int, db_session: AsyncSession):
+        return await super().get(role_id, db_session)
+
 
 role = CRUDRole(Role)

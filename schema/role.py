@@ -17,4 +17,4 @@ class IRoleUpdate(RoleBase):
 
 class IRoleEnum(str, Enum):
     admin = 'admin'
-    user = 'default'
+    user = 'user'
