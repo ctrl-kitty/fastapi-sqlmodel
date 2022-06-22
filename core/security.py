@@ -2,7 +2,6 @@ from datetime import timedelta, datetime
 from typing import Union, Any
 from jose import jwt
 from pydantic import ValidationError
-
 from api.exceptions import InvalidCredentialsException
 from core.config import settings
 from passlib.context import CryptContext

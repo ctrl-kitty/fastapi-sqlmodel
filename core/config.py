@@ -1,11 +1,7 @@
 import os
 from typing import Union, Optional, Any
-
 from pydantic import BaseSettings, EmailStr, IPvAnyAddress
 
-
-# todo ip validation
-# todo разобраться с загрузкой .env переменных до создания ссылок к бд(не через проперти)
 
 class Settings(BaseSettings):
     PROJECT_NAME: str

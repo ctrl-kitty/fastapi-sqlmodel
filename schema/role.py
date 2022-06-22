@@ -1,5 +1,4 @@
 from enum import Enum
-
 from model.role import RoleBase
 
 

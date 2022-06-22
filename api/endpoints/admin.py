@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends
 from fastapi_pagination import Page, Params
 from sqlmodel.ext.asyncio.session import AsyncSession
-
 import crud
 from api import dependencies
 from api.exceptions import UserWithThatUserIdNotFoundException
@@ -43,4 +42,4 @@ async def create_new_role(role: IRoleCreate, db_session: AsyncSession = Depends(
 @router.get('/roles/list', response_model=IGetResponseBase[Page[IRoleRead]])
 async def get_roles_list(params: Params = Depends(), db_session: AsyncSession = Depends(dependencies.get_db)):
     roles = await crud.role.get_multi_paginated(db_session=db_session, params=params)
-    return IGetResponseBase[Page[IUserRead]](data=roles)
+    return IGetResponseBase[Page[IRoleRead]](data=roles)

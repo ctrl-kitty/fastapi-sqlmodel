@@ -3,7 +3,6 @@ from typing import TypeVar, Generic, Type, Optional, Tuple, Union, T
 from fastapi_pagination import Params, Page
 from fastapi_pagination.ext.async_sqlmodel import paginate
 from sqlmodel.sql.expression import Select, SelectOfScalar
-
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlmodel import SQLModel

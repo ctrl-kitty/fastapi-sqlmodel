@@ -1,5 +1,4 @@
 from typing import List
-
 from pydantic import EmailStr
 
 
@@ -9,7 +8,6 @@ class BaseAPIException(Exception):
         self.status_code = 501
 
 
-# todo exclude message from __dict__
 class UserWithThatEmailExistException(BaseAPIException):
     def __init__(self, email: EmailStr):
         super().__init__('User with this email already exists.')

@@ -1,10 +1,8 @@
 from datetime import timedelta
 from typing import Any
-
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel.ext.asyncio.session import AsyncSession
-
 import crud
 from api import dependencies
 from core import security

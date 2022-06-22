@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-
 import crud
 from api import dependencies
 from model.user import User
@@ -17,7 +16,7 @@ async def get_user_by_id(curr_user: User = Depends(dependencies.get_current_user
 
 @router.post('/register', response_model=IPostResponseBase[IUserRead])
 async def register(user: IUserRegister, db_session: AsyncSession = Depends(dependencies.get_db)):
-    user = await crud.user.register(user, db_session)
+    user = await crud.user.register(user_schema=user, db_session=db_session)
     return IPostResponseBase[IUserRead](data=user)
 
 

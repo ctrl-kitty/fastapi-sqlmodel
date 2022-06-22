@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from core.config import settings
 from api.router import router
-from api.exceptions import  BaseAPIException
+from api.exceptions import BaseAPIException
 from schema.response import ErrorResponse
 
 app = FastAPI(title=settings.PROJECT_NAME)
@@ -17,4 +17,5 @@ async def user_with_that_email_exist_exception_handler(req: Request, exc: BaseAP
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host=str(settings.BACKEND_HOST), port=settings.BACKEND_PORT, debug=settings.DEBUG)
+    uvicorn.run(app, host=str(settings.BACKEND_HOST), log_level='debug' if settings.DEBUG else "critical",
+                port=settings.BACKEND_PORT, debug=settings.DEBUG)

@@ -1,7 +1,6 @@
 from typing import Generic, Optional, TypeVar
 from pydantic.generics import GenericModel
 from fastapi import Request
-
 from api.exceptions import BaseAPIException
 
 DataType = TypeVar("DataType")
@@ -33,5 +32,8 @@ class ErrorResponse:
         self.status_code = exc.status_code
         self.message = exc.message
         self.method = request.method
-        self.path = str(request.url)
-        self.detailed = exc.__dict__
+        self.path = request.url.path
+        detailed_dict = exc.__dict__
+        for key in self.__dict__:
+            detailed_dict.pop(key, None)
+        self.detailed = detailed_dict

@@ -1,9 +1,7 @@
 from typing import AsyncGenerator, List
-
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlmodel.ext.asyncio.session import AsyncSession
-
 import crud
 from api.exceptions import UserWithThatUserIdNotFoundException, InactiveUserException, InvalidRoleException
 from core.security import decode_user_id_from_token

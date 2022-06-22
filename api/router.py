@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-
 from api import dependencies
 from api.endpoints import users, login, admin
 from schema.role import IRoleEnum

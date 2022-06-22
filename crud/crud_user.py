@@ -1,10 +1,8 @@
 from datetime import datetime
 from typing import Optional, Tuple
-
 from pydantic import EmailStr
 from sqlalchemy import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-
 from api.exceptions import UserWithThatEmailExistException, UserWithThatEmailNotFoundException, \
     IncorrectPasswordException, UserWithThatUserIdNotFoundException
 from core.security import get_password_hash, verify_password
@@ -30,28 +28,27 @@ class CRUDUser(CRUDBase[User, IUserCreate, IUserUpdate]):
     async def get_user_by_id(self, user_id: int, db_session: AsyncSession) -> Tuple[Optional[User]]:
         return await super().get(user_id, db_session)
 
-    # todo fix naming 'user'
-    async def register(self, user: IUserRegister, db_session: AsyncSession):
-        return await self.create(IUserCreate.parse_obj(user.dict()), db_session)
+    async def register(self, user_schema: IUserRegister, db_session: AsyncSession):
+        return await self.create(IUserCreate.parse_obj(user_schema.dict()), db_session)
 
-    async def create(self, user: IUserCreate, db_session: AsyncSession) -> User:
-        if (await self.get_user_by_email(user.email, db_session)) is None:
+    async def create(self, user_schema: IUserCreate, db_session: AsyncSession) -> User:
+        if (await self.get_user_by_email(user_schema.email, db_session)) is None:
             db_obj = User(
-                first_name=user.first_name,
-                last_name=user.last_name,
-                email=user.email,
-                is_superuser=user.is_superuser,
-                hashed_password=await get_password_hash(user.password),
+                first_name=user_schema.first_name,
+                last_name=user_schema.last_name,
+                email=user_schema.email,
+                is_superuser=user_schema.is_superuser,
+                hashed_password=await get_password_hash(user_schema.password),
                 created_at=datetime.utcnow(),
                 updated_at=datetime.utcnow(),
-                role_id=user.role_id
+                role_id=user_schema.role_id
             )
             db_session.add(db_obj)
             await db_session.commit()
             await db_session.refresh(db_obj)
             return db_obj
         else:
-            raise UserWithThatEmailExistException(email=user.email)
+            raise UserWithThatEmailExistException(email=user_schema.email)
 
     async def set_role(self, user_id: int, role_id: int, db_session: AsyncSession):
         user_obj = await self.get_user_by_id(user_id=user_id, db_session=db_session)
