@@ -6,6 +6,7 @@ from pydantic import BaseSettings, EmailStr, IPvAnyAddress
 class Settings(BaseSettings):
     PROJECT_NAME: str
     DEBUG: bool
+    WORKERS_PER_THREAD: int
     BACKEND_PORT: Union[int, str]
     BACKEND_HOST: IPvAnyAddress
     FIRST_SUPERUSER_EMAIL: EmailStr

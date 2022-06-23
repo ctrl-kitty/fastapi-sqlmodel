@@ -14,7 +14,8 @@ Just create .env file in your user directory(~).
 
 ````
 # PROJECT SETTINGS
-DEBUG = #Bool
+DEBUG= #Bool
+WORKERS_PER_THREAD= #Integer
 PROJECT_NAME= #String
 BACKEND_PORT= #Integer/String
 BACKEND_HOST= #String(ip validation)
